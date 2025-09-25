@@ -158,7 +158,6 @@ function HomeContent() {
                 >
                   <div className="option-header">
                     <h4>{option.title}</h4>
-                    <p>{option.description}</p>
                   </div>
                 </div>
               ))}
@@ -175,7 +174,6 @@ function HomeContent() {
                 >
                   <div className="option-header">
                     <h4>{option.title}</h4>
-                    <p>{option.description}</p>
                   </div>
                 </div>
               ))}

@@ -87,6 +87,13 @@ export default function Payment() {
         );
         
         if (stripeConfirm) {
+          // Store transaction ID in localStorage before redirecting
+          localStorage.setItem('pendingPayment', JSON.stringify({
+            transactionId: updatedData.transactionId,
+            amount: updatedData.amount,
+            email: updatedData.email,
+            timestamp: new Date().toISOString()
+          }));
           window.location.href = paymentUrls.stripe;
         }
         break;
