@@ -14,9 +14,9 @@ export const config = {
 
   // Payment URLs
   payments: {
-    stripeUrl: process.env.STRIPE_DONATION_URL || '',
-    matbiaUrl: process.env.MATBIA_URL || '',
-    ojcUrl: process.env.OJC_URL || '',
+    stripeUrl: process.env.NEXT_PUBLIC_STRIPE_DONATION_URL || '',
+    matbiaUrl: process.env.NEXT_PUBLIC_MATBIA_URL || '',
+    ojcUrl: process.env.NEXT_PUBLIC_OJC_URL || '',
   },
 
   // Contact Information
@@ -34,9 +34,9 @@ export const validateConfig = () => {
   const required = [
     'GOOGLE_SHEETS_API_KEY',
     'GOOGLE_SHEETS_SHEET_ID',
-    'STRIPE_DONATION_URL',
-    'MATBIA_URL',
-    'OJC_URL'
+    'NEXT_PUBLIC_STRIPE_DONATION_URL',
+    'NEXT_PUBLIC_MATBIA_URL',
+    'NEXT_PUBLIC_OJC_URL'
   ];
 
   const missing = required.filter(key => !process.env[key]);
