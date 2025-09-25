@@ -137,15 +137,10 @@ export default function PrayerDisplay() {
         {/* Prayer Summary */}
         <div className="donation-summary">
           <h2>Prayer Details</h2>
-          <div className="summary-grid">
-            <div className="summary-item">
-              <span className="label">Performing For:</span>
-              <span className="value">{getPrayerTypeDisplayName(donationData.prayerType)}</span>
-            </div>
-            <div className="summary-item">
-              <span className="label">Amount:</span>
-              <span className="value">${donationData.amount}</span>
-            </div>
+          <div className="summary-card">
+            <p><strong>Performing Kapparot for:</strong> {getPrayerTypeDisplayName(donationData.prayerType)}</p>
+            <p><strong>Amount:</strong> ${donationData.amount}</p>
+            {sessionData?.email && <p><strong>Email:</strong> {sessionData.email}</p>}
           </div>
         </div>
 

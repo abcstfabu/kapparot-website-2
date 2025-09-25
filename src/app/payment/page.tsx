@@ -91,8 +91,7 @@ export default function Payment() {
           localStorage.setItem('pendingPayment', JSON.stringify({
             transactionId: updatedData.transactionId,
             amount: updatedData.amount,
-            email: updatedData.email,
-            timestamp: new Date().toISOString()
+            email: updatedData.email
           }));
           window.location.href = paymentUrls.stripe;
         }
