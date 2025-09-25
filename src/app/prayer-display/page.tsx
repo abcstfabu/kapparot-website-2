@@ -20,29 +20,29 @@ const PRAYERS = {
     english: `This is my substitute, this is my exchange, this is my atonement. This money shall go to charity, and I shall enter and go to a good, long life and peace.`
   },
   'self-female': {
-    hebrew: `זֹאת חֲלִיפָתִי. זֹאת תְּמוּרָתִי. זֹאת כַּפָּרָתִי. זֶה הַכֶּסֶף יֵלֵךְ לִצְדָקָה, וַאֲנִי אֶכָּנֵס וְאֵלֵךְ לְחַיִּים טוֹבִים אֲרוּכִים וּלְשָׁלוֹם:`,
-    transliteration: `Zot chalifati. Zot temurati. Zot kaparati. Zeh hakesef yelech litzedakah, va'ani ekanes ve'elech l'chayim tovim arukim ul'shalom.`,
+    hebrew: `זֶה חֲלִיפָתִי. זֶה תְּמוּרָתִי. זֶה כַּפָּרָתִי. זֶה הַכֶּסֶף יֵלֵךְ לִצְדָקָה, וַאֲנִי אֶכָּנֵס וְאֵלֵךְ לְחַיִּים טוֹבִים אֲרוּכִים וּלְשָׁלוֹם:`,
+    transliteration: `Zeh chalifati. Zeh temurati. Zeh kaparati. Zeh hakesef yelech litzedakah, va'ani ekanes ve'elech l'chayim tovim arukim ul'shalom.`,
     english: `This is my substitute. This is my exchange. This is my atonement. This money shall go to charity, and I shall enter and go to a good, long life and peace.`
   },
   'self-pregnant': {
-    hebrew: `אֵלּוּ חֲלִיפוֹתֵינוּ. אֵלּוּ תְּמוּרוֹתֵינוּ. אֵלּוּ כַּפָּרוֹתֵינוּ. זֶה הַכֶּסֶף יֵלֵךְ לִצְדָקָה, וַאֲנַחְנוּ נִכָּנֵס וְנֵלֵךְ לְחַיִּים טוֹבִים אֲרוּכִים וּלְשָׁלוֹם:`,
-    transliteration: `Eilu chalifoteinu. Eilu temuroteinu. Eilu kaparoteinu. Zeh hakesef yelech litzedakah, va'anachnu nikanes venelech l'chayim tovim arukim ul'shalom.`,
-    english: `These are our substitutes. These are our exchanges. These are our atonements. This money shall go to charity, and we shall enter and go to a good, long life and peace.`
+    hebrew: `זֶה חֲלִיפָתִי. זֶה תְּמוּרָתִי. זֶה כַּפָּרָתִי. זֶה הַכֶּסֶף יֵלֵךְ לִצְדָקָה, וַאֲנִי אֶכָּנֵס וְאֵלֵךְ לְחַיִּים טוֹבִים אֲרוּכִים וּלְשָׁלוֹם:`,
+    transliteration: `Zeh chalifati. Zeh temurati. Zeh kaparati. Zeh hakesef yelech litzedakah, va'ani ekanes ve'elech l'chayim tovim arukim ul'shalom.`,
+    english: `This is my substitute. This is my exchange. This is my atonement. This money shall go to charity, and I shall enter and go to a good, long life and peace.`
   },
   'other-male': {
-    hebrew: `זֶה חֲלִיפָתְךָ. זֶה תְּמוּרָתְךָ. זֶה הַכֶּסֶף יֵלֵךְ לִצְדָקָה, וְאַתָּה תִּכָּנֵס וְתֵלֵךְ לְחַיִּים טוֹבִים אֲרוּכִים וּלְשָׁלוֹם:`,
-    transliteration: `Zeh chalifatcha. Zeh temuratcha. Zeh hakesef yelech litzedakah, ve'ata tikanes vetelech l'chayim tovim arukim ul'shalom.`,
-    english: `This is your substitute. This is your exchange. This money shall go to charity, and you shall enter and go to a good, long life and peace.`
+    hebrew: `זֶה חֲלִיפָתְךָ. זֶה תְּמוּרָתְךָ. זֶה כַּפָּרָתְךָ. זֶה הַכֶּסֶף יֵלֵךְ לִצְדָקָה, וְאַתָּה תִּכָּנֵס וְתֵלֵךְ לְחַיִּים טוֹבִים אֲרוּכִים וּלְשָׁלוֹם:`,
+    transliteration: `Zeh chalifatcha. Zeh temuratcha. Zeh kaparatcha. Zeh hakesef yelech litzedakah, ve'ata tikanes vetelech l'chayim tovim arukim ul'shalom.`,
+    english: `This is your substitute. This is your exchange. This is your atonement. This money shall go to charity, and you shall enter and go to a good, long life and peace.`
   },
   'other-female': {
-    hebrew: `זֹאת חֲלִיפָתֵךְ. זֹאת תְּמוּרָתֵךְ. זֹאת כַּפָּרָתֵךְ. זֶה הַכֶּסֶף יֵלֵךְ לִצְדָקָה, וְאַתְּ תִּכָּנְסִי וְתֵלְכִי לְחַיִּים טוֹבִים אֲרוּכִים וּלְשָׁלוֹם:`,
-    transliteration: `Zot chalifatech. Zot temuratech. Zot kaparatech. Zeh hakesef yelech litzedakah, ve'at tikans'i vetelchi l'chayim tovim arukim ul'shalom.`,
+    hebrew: `זֶה חֲלִיפָתֵךְ. זֶה תְּמוּרָתֵךְ. זֶה כַּפָּרָתֵךְ. זֶה הַכֶּסֶף יֵלֵךְ לִצְדָקָה, וְאַתְּ תִּכָּנְסִי וְתֵלְכִי לְחַיִּים טוֹבִים אֲרוּכִים וּלְשָׁלוֹם:`,
+    transliteration: `Zeh chalifatech. Zeh temuratech. Zeh kaparatech. Zeh hakesef yelech litzedakah, ve'at tikans'i vetelchi l'chayim tovim arukim ul'shalom.`,
     english: `This is your substitute. This is your exchange. This is your atonement. This money shall go to charity, and you shall enter and go to a good, long life and peace.`
   },
   'other-pregnant': {
-    hebrew: `אֵלּוּ חֲלִיפוֹתֵינוּ. אֵלּוּ תְּמוּרוֹתֵינוּ. אֵלּוּ כַּפָּרוֹתֵינוּ. זֶה הַכֶּסֶף יֵלֵךְ לִצְדָקָה, וַאֲנַחְנוּ נִכָּנֵס וְנֵלֵךְ לְחַיִּים טוֹבִים אֲרוּכִים וּלְשָׁלוֹם:`,
-    transliteration: `Eilu chalifoteinu. Eilu temuroteinu. Eilu kaparoteinu. Zeh hakesef yelech litzedakah, va'anachnu nikanes venelech l'chayim tovim arukim ul'shalom.`,
-    english: `These are our substitutes. These are our exchanges. These are our atonements. This money shall go to charity, and we shall enter and go to a good, long life and peace.`
+    hebrew: `זֶה חֲלִיפָתְכֶם. זֶה תְּמוּרָתְכֶם. זֶה כַּפָּרָתְכֶם. זֶה הַכֶּסֶף יֵלֵךְ לִצְדָקָה, וְאַתֶּם תִּכָּנְסוּ וְתֵלְכוּ לְחַיִּים טוֹבִים אֲרוּכִים וּלְשָׁלוֹם:`,
+    transliteration: `Zeh chalifatchem. Zeh temuratchem. Zeh kaparatchem. Zeh hakesef yelech litzedakah, ve'atem tikans'u vetelchu l'chayim tovim arukim ul'shalom.`,
+    english: `This is your substitute. This is your exchange. This is your atonement. This money shall go to charity, and you shall enter and go to a good, long life and peace.`
   }
 };
 
