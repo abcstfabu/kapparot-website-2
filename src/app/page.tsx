@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import { PrayerType, DonationData, SessionData } from '@/types';
 import { 
-  getDonationData, 
   getSessionData, 
   saveSessionData, 
   saveDonationData,
@@ -243,7 +243,7 @@ export default function Home() {
         <p>&copy; 2025 Kapparot Online. Helping fulfill the tradition of tzedakah during the High Holy Days.</p>
         <p>
           <a href="/privacy-policy" style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'underline' }}>Privacy Policy</a> | 
-          <a href="/?reset=true" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }}> Start Fresh Session</a>
+          <Link href="/?reset=true" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }}> Start Fresh Session</Link>
         </p>
       </footer>
     </div>

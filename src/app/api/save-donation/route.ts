@@ -109,14 +109,19 @@ const saveToGoogleSheets = async (donationData: DonationData): Promise<{ success
 };
 
 // Validate donation data
-const validateDonationData = (data: any): data is DonationData => {
+const validateDonationData = (data: unknown): data is DonationData => {
+  if (!data || typeof data !== 'object') {
+    return false;
+  }
+  
+  const obj = data as Record<string, unknown>;
+  
   return (
-    data &&
-    typeof data.prayerType === 'string' &&
-    typeof data.amount === 'number' &&
-    data.amount > 0 &&
-    typeof data.email === 'string' &&
-    data.email.includes('@')
+    typeof obj.prayerType === 'string' &&
+    typeof obj.amount === 'number' &&
+    obj.amount > 0 &&
+    typeof obj.email === 'string' &&
+    obj.email.includes('@')
   );
 };
 
