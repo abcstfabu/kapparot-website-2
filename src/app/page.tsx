@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { PrayerType, DonationData, SessionData } from '@/types';
@@ -12,7 +12,8 @@ import {
   isValidEmail
 } from '@/lib/storage';
 
-export default function Home() {
+// Component that uses useSearchParams - needs to be wrapped in Suspense
+function HomeContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   
@@ -247,5 +248,14 @@ export default function Home() {
         </p>
       </footer>
     </div>
+  );
+}
+
+// Main component with Suspense boundary
+export default function Home() {
+  return (
+    <Suspense fallback={<div className="container"><div style={{ textAlign: 'center', padding: '2rem' }}>Loading...</div></div>}>
+      <HomeContent />
+    </Suspense>
   );
 }
