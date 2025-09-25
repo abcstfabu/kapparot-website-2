@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { config, validateConfig } from '@/lib/config';
 import { DonationData, PrayerType } from '@/types';
 
 // Helper function to get prayer type display name
@@ -17,83 +16,40 @@ const getPrayerTypeDisplayName = (prayerType: PrayerType | string): string => {
   return names[prayerType] || String(prayerType);
 };
 
-// Initialize headers if they don't exist
-const initializeHeaders = async (): Promise<boolean> => {
-  const headers = [
-    'Timestamp',
-    'Prayer Type', 
-    'Amount',
-    'Email',
-    'Transaction ID',
-    'Payment Method',
-    'Status'
-  ];
-  
-  try {
-    // Check if headers exist
-    const checkResponse = await fetch(
-      `https://sheets.googleapis.com/v4/spreadsheets/${config.googleSheets.sheetId}/values/${config.googleSheets.sheetName}!A1:G1?key=${config.googleSheets.apiKey}`
-    );
-    
-    if (checkResponse.ok) {
-      const data = await checkResponse.json();
-      
-      // If no headers, add them
-      if (!data.values || data.values.length === 0) {
-        const headerResponse = await fetch(
-          `https://sheets.googleapis.com/v4/spreadsheets/${config.googleSheets.sheetId}/values/${config.googleSheets.sheetName}!A1:G1?valueInputOption=RAW&key=${config.googleSheets.apiKey}`,
-          {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              values: [headers]
-            })
-          }
-        );
-        
-        return headerResponse.ok;
-      }
-      
-      return true;
-    }
-    
-    return false;
-  } catch (error) {
-    console.error('Failed to initialize headers:', error);
-    return false;
-  }
-};
-
-// Save donation to Google Sheets
+// Save donation to Google Sheets via Apps Script
 const saveToGoogleSheets = async (donationData: DonationData): Promise<{ success: boolean; error?: string }> => {
   try {
-    // Initialize headers if needed
-    await initializeHeaders();
+    const appsScriptUrl = process.env.GOOGLE_APPS_SCRIPT_URL;
     
-    const row = [
-      new Date().toISOString(),                                    // Timestamp
-      getPrayerTypeDisplayName(donationData.prayerType),          // Prayer Type
-      String(donationData.amount),                                // Amount
-      donationData.email || '',                                   // Email
-      donationData.transactionId || '',                          // Transaction ID
-      donationData.paymentMethod || '',                          // Payment Method
-      donationData.completedAt ? 'Completed' : 'Payment Selected' // Status
-    ];
+    if (!appsScriptUrl) {
+      throw new Error('Google Apps Script URL not configured');
+    }
     
-    const response = await fetch(config.googleSheets.apiUrl, {
+    const payload = {
+      timestamp: new Date().toISOString(),
+      prayerType: getPrayerTypeDisplayName(donationData.prayerType),
+      amount: String(donationData.amount),
+      email: donationData.email || '',
+      transactionId: donationData.transactionId || '',
+      paymentMethod: donationData.paymentMethod || '',
+      status: donationData.completedAt ? 'Completed' : 'Payment Selected'
+    };
+    
+    const response = await fetch(appsScriptUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        values: [row]
-      })
+      body: JSON.stringify(payload)
     });
     
     if (response.ok) {
-      return { success: true };
+      const result = await response.json();
+      if (result.success) {
+        return { success: true };
+      } else {
+        throw new Error(result.error || 'Apps Script error');
+      }
     } else {
       const errorText = await response.text();
       throw new Error(`HTTP ${response.status}: ${errorText}`);
@@ -138,14 +94,14 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Check if configuration is valid
-    if (!validateConfig()) {
-      console.warn('Google Sheets not configured properly, falling back to localStorage');
+    // Check if Apps Script URL is configured
+    if (!process.env.GOOGLE_APPS_SCRIPT_URL) {
+      console.warn('Google Apps Script not configured, falling back to localStorage');
       return NextResponse.json(
         { 
           success: true, 
           method: 'localStorage',
-          message: 'Data saved locally (Google Sheets not configured)' 
+          message: 'Data saved locally (Google Apps Script not configured)' 
         },
         { status: 200 }
       );
@@ -158,8 +114,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { 
           success: true, 
-          method: 'sheets',
-          message: 'Data saved to Google Sheets successfully' 
+          method: 'apps-script',
+          message: 'Data saved to Google Sheets via Apps Script successfully' 
         },
         { status: 200 }
       );
@@ -196,7 +152,8 @@ export async function GET() {
   return NextResponse.json(
     { 
       message: 'Kapparot donation API is running',
-      configured: validateConfig(),
+      configured: !!process.env.GOOGLE_APPS_SCRIPT_URL,
+      method: 'Google Apps Script',
       timestamp: new Date().toISOString()
     },
     { status: 200 }
