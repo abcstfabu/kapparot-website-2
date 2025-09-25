@@ -58,6 +58,7 @@ export default function PrayerDisplay() {
   const [activeLanguage, setActiveLanguage] = useState<LanguageType>('hebrew');
   const [donationData, setDonationData] = useState<DonationData | null>(null);
   const [sessionData, setSessionData] = useState<SessionData | null>(null);
+  const [showIntroductory, setShowIntroductory] = useState<boolean>(true);
 
   useEffect(() => {
     // Load donation data and check if valid
@@ -177,15 +178,28 @@ export default function PrayerDisplay() {
               English
             </button>
           </div>
+          
+          {/* Introductory Prayer Toggle */}
+          <div className="introductory-toggle">
+            <button 
+              className="intro-toggle-btn"
+              onClick={() => setShowIntroductory(!showIntroductory)}
+            >
+              {showIntroductory ? 'Hide' : 'Show'} Introductory Prayer
+            </button>
+          </div>
         </div>
 
         {/* Prayer Content */}
         <div className="prayer-container">
           {/* Hebrew Prayer */}
           <div className={`prayer-text ${activeLanguage === 'hebrew' ? 'active' : ''}`}>
-            <div className="introductory-prayer">
-              <p className="prayer-content hebrew-text">{INTRODUCTORY_PRAYER.hebrew}</p>
-            </div>
+            {showIntroductory && (
+              <div className="introductory-prayer">
+                <p className="prayer-content hebrew-text">{INTRODUCTORY_PRAYER.hebrew}</p>
+                <div className="prayer-divider"></div>
+              </div>
+            )}
             <div className="main-prayer">
               <p className="prayer-content hebrew-text">{prayer.hebrew}</p>
             </div>
@@ -193,9 +207,12 @@ export default function PrayerDisplay() {
 
           {/* Transliteration */}
           <div className={`prayer-text ${activeLanguage === 'transliteration' ? 'active' : ''}`}>
-            <div className="introductory-prayer">
-              <p className="prayer-content transliteration-text">{INTRODUCTORY_PRAYER.transliteration}</p>
-            </div>
+            {showIntroductory && (
+              <div className="introductory-prayer">
+                <p className="prayer-content transliteration-text">{INTRODUCTORY_PRAYER.transliteration}</p>
+                <div className="prayer-divider"></div>
+              </div>
+            )}
             <div className="main-prayer">
               <p className="prayer-content transliteration-text">{prayer.transliteration}</p>
             </div>
@@ -203,9 +220,12 @@ export default function PrayerDisplay() {
 
           {/* English Prayer */}
           <div className={`prayer-text ${activeLanguage === 'english' ? 'active' : ''}`}>
-            <div className="introductory-prayer">
-              <p className="prayer-content english-text">{INTRODUCTORY_PRAYER.english}</p>
-            </div>
+            {showIntroductory && (
+              <div className="introductory-prayer">
+                <p className="prayer-content english-text">{INTRODUCTORY_PRAYER.english}</p>
+                <div className="prayer-divider"></div>
+              </div>
+            )}
             <div className="main-prayer">
               <p className="prayer-content english-text">{prayer.english}</p>
             </div>

@@ -355,6 +355,36 @@ body {
     transform: translateY(-1px);
 }
 
+/* Introductory Prayer Toggle */
+.introductory-toggle {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.intro-toggle-btn {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.intro-toggle-btn:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.prayer-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, #cbd5e1 20%, #cbd5e1 80%, transparent 100%);
+    margin: 25px 0;
+    opacity: 0.6;
+}
+
 .prayer-container {
     background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
     border-radius: 20px;
@@ -863,6 +893,17 @@ body {
     
     .english-text {
         font-size: 1rem;
+    }
+    
+    /* Introductory Toggle Mobile */
+    .intro-toggle-btn {
+        padding: 12px 16px;
+        font-size: 0.9rem;
+        min-height: 44px;
+    }
+    
+    .prayer-divider {
+        margin: 20px 0;
     }
 }
 
