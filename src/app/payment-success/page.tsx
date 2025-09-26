@@ -81,6 +81,9 @@ function PaymentSuccessContent() {
             Privacy Policy
           </Link>
         </p>
+        <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)', marginTop: '10px' }}>
+          Ahavas Yisroel Inc. - 501(c)(3) Nonprofit Organization | Tax ID: 81-3495350
+        </p>
       </footer>
     </div>
   );

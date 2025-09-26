@@ -127,6 +127,28 @@ function HomeContent() {
           <p>Kapparot is a Jewish ritual performed before Yom Kippur where we symbolically transfer our sins through charitable giving. Your donation will go directly to help those in need, fulfilling the mitzvah of tzedakah while performing this meaningful tradition.</p>
         </div>
 
+        <div className="donation-purpose">
+          <div className="purpose-card">
+            <div className="purpose-icon">🏡</div>
+            <div className="purpose-details">
+              <h3>Where Your Donation Goes</h3>
+              <p>Your charitable contribution supports <strong>Jewish families who have made aliyah</strong> and are building new lives in Eretz Yisrael. These brave souls answered the call to settle in the Holy Land, and we help ease their journey with financial support during the High Holy Days.</p>
+              <p className="purpose-highlight">Your tzedakah becomes part of the great mitzvah of <em>Yishuv Eretz Yisrael</em> - settling the Land of Israel.</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="nonprofit-info">
+          <div className="nonprofit-card">
+            <div className="nonprofit-icon">🏛️</div>
+            <div className="nonprofit-details">
+              <h3>Tax-Deductible Donations</h3>
+              <p><strong>Ahavas Yisroel Inc.</strong> is recognized as a nonprofit organization by the IRS.</p>
+              <p><strong>501(c)(3) Status</strong> • Tax ID: 81-3495350</p>
+            </div>
+          </div>
+        </div>
+
         <div className="prayer-selection">
           <h2>Who is performing Kapparot?</h2>
           <p className="instruction">Please select the appropriate prayer based on who is performing the ritual:</p>
@@ -243,6 +265,9 @@ function HomeContent() {
         <p>
           <a href="/privacy-policy" style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'underline' }}>Privacy Policy</a> | 
           <Link href="/?reset=true" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }}> Start Fresh Session</Link>
+        </p>
+        <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)', marginTop: '10px' }}>
+          Ahavas Yisroel Inc. - 501(c)(3) Nonprofit Organization | Tax ID: 81-3495350
         </p>
       </footer>
     </div>

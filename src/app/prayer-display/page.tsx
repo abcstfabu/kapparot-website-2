@@ -64,7 +64,7 @@ export default function PrayerDisplay() {
     // Load donation data and check if valid
     const data = getDonationData();
     const session = getSessionData();
-    
+
     if (!data || !data.prayerType) {
       // No data - redirect back to start
       router.push('/');
@@ -75,8 +75,22 @@ export default function PrayerDisplay() {
     setSessionData(session);
   }, [router]);
 
+  // Scroll to top when advancing steps
+  useEffect(() => {
+    if (currentStep > 1) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [currentStep]);
+
   const handleLanguageToggle = (language: LanguageType) => {
     setActiveLanguage(language);
+    // Scroll to prayer text for better visibility
+    setTimeout(() => {
+      const prayerContainer = document.querySelector('.prayer-container');
+      if (prayerContainer) {
+        prayerContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 100);
   };
 
   const handleNextStep = () => {
@@ -136,9 +150,9 @@ export default function PrayerDisplay() {
       <div className="ceremony-header">
         <h1>Your Kapparot Ceremony</h1>
         <p className="subtitle">
-          {currentStep === 1 && "Step 1 of 2: Introductory Prayer"}
-          {currentStep === 2 && "Step 2 of 2: Main Ceremony"}
-          {currentStep === 3 && "Ceremony Complete"}
+          {currentStep === 1 && "Step 1 of 3: Introductory Prayer"}
+          {currentStep === 2 && "Step 2 of 3: Main Ceremony"}
+          {currentStep === 3 && "Step 3 of 3: Complete Your Ceremony"}
         </p>
 
         {/* Progress Indicator */}
@@ -275,35 +289,41 @@ export default function PrayerDisplay() {
 
             <div className="step-actions">
               <button className="btn primary-btn" onClick={handleNextStep}>
-                I&apos;ve Completed the Ceremony 3 Times → Finish
+                I&apos;ve Completed the Ceremony 3 Times → Continue
               </button>
             </div>
           </div>
         )}
 
-        {/* Step 3: Completion */}
+        {/* Step 3: Complete Ceremony */}
         {currentStep === 3 && (
           <div className="ceremony-step">
-            <div className="success-message">
-              <h2>Ceremony Complete!</h2>
-              <p>Your Kapparot ceremony has been completed. May this act of tzedakah bring you merit for a blessed new year.</p>
-            </div>
-
-            <h3 className="next-steps-title">What would you like to do next?</h3>
-            <div className="action-buttons">
-              <button className="action-btn secondary-btn" onClick={handlePerformAnother}>
-                Perform Another Kapparot
-              </button>
-              <button className="action-btn primary-btn" onClick={handleProceedToDonate}>
-                Complete Your Donation (${totalAmount.toFixed(2)})
-              </button>
+            <div className="ceremony-completion">
+              <div className="success-message">
+                <h2>Complete Your Ceremony</h2>
+                <p>You have recited the prayers. Now complete your Kapparot by making your charitable donation - this final act of tzedakah will fulfill the mitzvah and bring you merit for the new year.</p>
+              </div>
+              
+              <h3 className="next-steps-title">Choose how to complete your ceremony:</h3>
+              <div className="action-buttons">
+                <button className="action-btn secondary-btn" onClick={handlePerformAnother}>
+                  Perform Another Kapparot
+                </button>
+                <button className="action-btn primary-btn" onClick={handleProceedToDonate}>
+                  Complete Ceremony with Donation (${totalAmount.toFixed(2)})
+                </button>
+              </div>
             </div>
           </div>
         )}
+
       </main>
 
       <footer className="footer">
         <p>&copy; 2025 Kapparot Online. May your prayers be answered and your giving bring blessing.</p>
+        <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)', marginTop: '10px' }}>
+          Ahavas Yisroel Inc. - 501(c)(3) Nonprofit Organization | Tax ID: 81-3495350
+        </p>
       </footer>
     </div>
   );
