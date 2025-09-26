@@ -60,24 +60,26 @@ export default function Payment() {
       transactionId: donationData.transactionId || generateTransactionId()
     };
     
-    // Save donation record
+    // Save donation record locally (instant)
     saveDonationData(updatedData);
-    
-    // TODO: Save to Google Sheets via API route
-    try {
-      await fetch('/api/save-donation', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedData),
-      });
-    } catch (error) {
-      console.error('Error saving to database:', error);
-    }
     
     // Clear accumulated session after payment method selection
     clearSessionData();
+    
+    // Helper function to save to database (async, non-blocking)
+    const saveToDatabase = async () => {
+      try {
+        await fetch('/api/save-donation', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedData),
+        });
+      } catch (error) {
+        console.error('Error saving to database:', error);
+      }
+    };
     
     // Handle different payment methods
     switch (method) {
@@ -87,6 +89,9 @@ export default function Payment() {
         );
         
         if (stripeConfirm) {
+          // Save to database after user confirms
+          saveToDatabase();
+          
           // Store transaction ID in localStorage before redirecting
           localStorage.setItem('pendingPayment', JSON.stringify({
             transactionId: updatedData.transactionId,
@@ -103,6 +108,8 @@ export default function Payment() {
         );
         
         if (matbiaConfirm) {
+          // Save to database after user confirms
+          saveToDatabase();
           window.location.href = paymentUrls.matbia;
         }
         break;
@@ -113,6 +120,8 @@ export default function Payment() {
         );
         
         if (ojcConfirm) {
+          // Save to database after user confirms
+          saveToDatabase();
           window.location.href = paymentUrls.ojc;
         }
         break;
@@ -123,39 +132,37 @@ export default function Payment() {
         );
         
         if (paypalConfirm) {
+          // Save to database after user confirms
+          saveToDatabase();
           window.location.href = config.payments.paypalUrl;
         }
         break;
         
       case 'zelle':
-        // Copy email address to clipboard
-        try {
-          await navigator.clipboard.writeText(config.contactEmail);
-          const zelleMessage = 
-            `Zelle Donation\n\n` +
-            `Amount: $${donationData.amount}\n` +
-            `Send to: ${config.contactEmail}\n` +
-            `Notes: Kapparot\n\n` +
-            `✅ Email address copied to clipboard!\n` +
-            `Send this donation via Zelle, then click OK.`;
-          
-          window.alert(zelleMessage);
-        } catch {
-          // Fallback if clipboard doesn't work
-          const zelleMessage = 
-            `Zelle Donation\n\n` +
-            `Amount: $${donationData.amount}\n` +
-            `Send to: ${config.contactEmail}\n` +
-            `Notes: Kapparot\n\n` +
-            `Send this donation via Zelle, then click OK.`;
-          
-          window.alert(zelleMessage);
-        }
+        // Copy email address to clipboard (non-blocking)
+        navigator.clipboard.writeText(config.contactEmail).catch(() => {
+          // Silent fail if clipboard doesn't work
+        });
         
-        // Mark as completed and redirect
-        updatedData.completedAt = new Date().toISOString();
-        saveDonationData(updatedData);
-        router.push('/completion');
+        // Show popup immediately
+        const zelleConfirm = window.confirm(
+          `Zelle Donation\n\n` +
+          `Amount: $${donationData.amount}\n` +
+          `Send to: ${config.contactEmail}\n` +
+          `Notes: Kapparot\n\n` +
+          `✅ Email address copied to clipboard!\n` +
+          `Click OK to continue to completion page.`
+        );
+        
+        if (zelleConfirm) {
+          // Save to database after user confirms
+          saveToDatabase();
+          
+          // Mark as completed and redirect
+          updatedData.completedAt = new Date().toISOString();
+          saveDonationData(updatedData);
+          router.push('/completion');
+        }
         break;
         
       default:
