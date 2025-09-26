@@ -17,6 +17,7 @@ export const config = {
     stripeUrl: process.env.NEXT_PUBLIC_STRIPE_DONATION_URL || '',
     matbiaUrl: process.env.NEXT_PUBLIC_MATBIA_URL || '',
     ojcUrl: process.env.NEXT_PUBLIC_OJC_URL || '',
+    paypalUrl: process.env.NEXT_PUBLIC_PAYPAL_URL || '',
   },
 
   // Contact Information
@@ -36,7 +37,8 @@ export const validateConfig = () => {
     'GOOGLE_SHEETS_SHEET_ID',
     'NEXT_PUBLIC_STRIPE_DONATION_URL',
     'NEXT_PUBLIC_MATBIA_URL',
-    'NEXT_PUBLIC_OJC_URL'
+    'NEXT_PUBLIC_OJC_URL',
+    'NEXT_PUBLIC_PAYPAL_URL'
   ];
 
   const missing = required.filter(key => !process.env[key]);

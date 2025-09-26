@@ -83,7 +83,7 @@ export default function Payment() {
     switch (method) {
       case 'stripe':
         const stripeConfirm = window.confirm(
-          `Stripe Payment:\n\nClick OK to go to Stripe to make your $${donationData.amount} donation.\n\nYour email will be pre-filled on the payment form.\n\nAfter completing payment, please return to this website to complete your Kapparot prayer.\n\nClick OK to proceed to Stripe, or Cancel to choose a different payment method.`
+          `Stripe Payment\n\nAmount: $${donationData.amount}\n\nClick OK to go to Stripe and donate this amount.`
         );
         
         if (stripeConfirm) {
@@ -99,7 +99,7 @@ export default function Payment() {
         
       case 'matbia':
         const matbiaConfirm = window.confirm(
-          `Matbia Payment:\n\nClick OK to go to Matbia platform to make your $${donationData.amount} donation.\n\nAfter completing payment, please return to this website to complete your Kapparot prayer.\n\nClick OK to proceed to Matbia, or Cancel to choose a different payment method.`
+          `Matbia Payment\n\nAmount: $${donationData.amount}\n\nClick OK to go to Matbia and donate this amount.`
         );
         
         if (matbiaConfirm) {
@@ -109,7 +109,7 @@ export default function Payment() {
         
       case 'ojc':
         const ojcConfirm = window.confirm(
-          `OJC Payment:\n\nClick OK to go to OJC secure payment system to make your $${donationData.amount} donation.\n\nAfter completing payment, please return to this website to complete your Kapparot prayer.\n\nClick OK to proceed to OJC, or Cancel to choose a different payment method.`
+          `OJC Payment\n\nAmount: $${donationData.amount}\n\nClick OK to go to OJC and donate this amount.`
         );
         
         if (ojcConfirm) {
@@ -118,27 +118,22 @@ export default function Payment() {
         break;
         
       case 'paypal':
-        const paypalMessage = 
-          `PayPal Payment Instructions:\n\n` +
-          `Send your donation to: ${config.contactEmail}\n` +
-          `Amount: $${donationData.amount}\n\n` +
-          `Please include "Kapparot - ${getPrayerTypeDisplayName(donationData.prayerType)}" in the notes.\n\n` +
-          `After sending your payment, click OK to complete your Kapparot.`;
+        const paypalConfirm = window.confirm(
+          `PayPal Payment\n\nAmount: $${donationData.amount}\n\nClick OK to go to PayPal and donate this amount.`
+        );
         
-        window.alert(paypalMessage);
-        // Mark as completed and redirect
-        updatedData.completedAt = new Date().toISOString();
-        saveDonationData(updatedData);
-        router.push('/completion');
+        if (paypalConfirm) {
+          window.location.href = config.payments.paypalUrl;
+        }
         break;
         
       case 'zelle':
         const zelleMessage = 
-          `Zelle/QuickPay Payment Instructions:\n\n` +
-          `Send your donation to: ${config.contactEmail}\n` +
-          `Amount: $${donationData.amount}\n\n` +
-          `Please include "Kapparot - ${getPrayerTypeDisplayName(donationData.prayerType)}" in the notes.\n\n` +
-          `After sending your payment, click OK to complete your Kapparot.`;
+          `Zelle Payment\n\n` +
+          `Amount: $${donationData.amount}\n` +
+          `Send to: ${config.contactEmail}\n` +
+          `Notes: Kapparot\n\n` +
+          `Send this payment via Zelle, then click OK.`;
         
         window.alert(zelleMessage);
         // Mark as completed and redirect
@@ -184,14 +179,14 @@ export default function Payment() {
               <div className="method-header">
                 <h4>Credit Card (Stripe)</h4>
               </div>
-              <p>Pay with any major credit or debit card through our secure Stripe donation page (return to this website after payment to complete your prayer)</p>
+              <p>Pay with any major credit or debit card through our secure Stripe donation page</p>
             </div>
 
             <div className="payment-method" onClick={() => handlePaymentMethodSelect('paypal')}>
               <div className="method-header">
                 <h4>PayPal</h4>
               </div>
-              <p>Send to: <strong>{config.contactEmail}</strong></p>
+              <p>Pay securely through PayPal.me</p>
             </div>
 
             <div className="payment-method" onClick={() => handlePaymentMethodSelect('zelle')}>
