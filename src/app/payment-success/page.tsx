@@ -1,94 +1,33 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 function PaymentSuccessContent() {
   const router = useRouter();
-  const [updateStatus, setUpdateStatus] = useState<'loading' | 'success' | 'error'>('loading');
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const [paymentDetails, setPaymentDetails] = useState<{
-    transactionId?: string;
-    amount?: number;
-    email?: string;
-  }>({});
 
   useEffect(() => {
-    const updatePaymentStatus = async () => {
-      try {
-        // Get transaction ID from localStorage (stored before Stripe redirect)
-        let transactionId = null;
-        let pendingPayment = null;
-        
-        try {
-          const storedPayment = localStorage.getItem('pendingPayment');
-          if (storedPayment) {
-            pendingPayment = JSON.parse(storedPayment);
-            transactionId = pendingPayment.transactionId;
-            
-            // Set payment details for display
-            setPaymentDetails({
-              transactionId: pendingPayment.transactionId,
-              amount: pendingPayment.amount,
-              email: pendingPayment.email
-            });
-            
-            // Clear the stored payment (one-time use)
-            localStorage.removeItem('pendingPayment');
-          }
-        } catch (error) {
-          console.warn('Error reading pending payment from localStorage:', error);
-        }
-        
-        if (!transactionId) {
-          console.warn('No transaction ID found in localStorage');
-          setUpdateStatus('error');
-          setErrorMessage('Unable to identify the payment record');
-          return;
-        }
+    // Clean up localStorage
+    try {
+      localStorage.removeItem('pendingPayment');
+    } catch (error) {
+      console.warn('Error cleaning localStorage:', error);
+    }
+  }, []);
 
-        console.log('Updating payment:', { transactionId });
-
-        // Call API to update the payment status
-        const response = await fetch('/api/update-payment-status', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            transactionId: transactionId,
-            status: 'Completed'
-          })
-        });
-
-        if (response.ok) {
-          const result = await response.json();
-          console.log('Payment status updated:', result);
-          setUpdateStatus('success');
-        } else {
-          console.error('Failed to update payment status');
-          setUpdateStatus('error');
-          setErrorMessage('Failed to update payment record');
-        }
-        
-      } catch (error) {
-        console.error('Error updating payment status:', error);
-        setUpdateStatus('error');
-        setErrorMessage('Network error updating payment record');
-      }
-    };
-
-    updatePaymentStatus();
-  }, []); // Run once on mount
-
-  const handleReturnHome = () => {
-    router.push('/');
-  };
-
-  const handlePerformAnother = () => {
+  const handleStartNew = () => {
+    // Clear any session data for a fresh start
+    try {
+      localStorage.removeItem('pendingPayment');
+      localStorage.removeItem('sessionData');
+      localStorage.removeItem('donationData');
+    } catch (error) {
+      console.warn('Error clearing localStorage:', error);
+    }
     router.push('/?reset=true');
   };
+
 
   return (
     <div className="container">
@@ -100,67 +39,39 @@ function PaymentSuccessContent() {
       <main className="main-content">
         <div className="success-message">
           <div className="success-card">
-            <h2>Thank You for Your Donation</h2>
-            <p>Your charitable contribution has been processed successfully and helps fulfill the mitzvah of tzedakah as part of your Kapparot observance.</p>
-            
-            {paymentDetails.transactionId && (
-              <div className="payment-details">
-                <h3>Payment Details</h3>
-                <p><strong>Amount:</strong> ${paymentDetails.amount}</p>
-                <p><strong>Email:</strong> {paymentDetails.email}</p>
-                <p><strong>Transaction ID:</strong> {paymentDetails.transactionId}</p>
-              </div>
-            )}
-            
-            {updateStatus === 'loading' && (
-              <div className="status-indicator">
-                <p>📝 Updating donation records...</p>
-              </div>
-            )}
-            
-            {updateStatus === 'success' && (
-              <div className="status-indicator success">
-                <p>✅ Donation recorded successfully</p>
-              </div>
-            )}
-            
-            {updateStatus === 'error' && (
-              <div className="status-indicator error">
-                <p>⚠️ Payment successful, but record update failed: {errorMessage}</p>
-                <small>Your payment went through successfully. The record will be updated manually if needed.</small>
-              </div>
-            )}
+            <h2>Thank You! 🙏</h2>
+            <p>Your Kapparot has been completed. May this act of tzedakah bring you merit for a blessed new year.</p>
           </div>
         </div>
 
-        <div className="next-steps">
-          <h3>What would you like to do next?</h3>
-          <div className="action-buttons">
-            <button 
-              onClick={handlePerformAnother} 
-              className="primary-btn"
-            >
-              Perform Another Kapparot
-            </button>
-            <button 
-              onClick={handleReturnHome} 
-              className="secondary-btn"
-            >
-              Return to Home
-            </button>
+        <div className="share-section">
+          <div className="share-card">
+            <h3>Share with Others</h3>
+            <p>Help others fulfill the mitzvah of Kapparot by sharing this link:</p>
+            
+            <div className="share-buttons">
+              <button 
+                className="share-btn copy-btn"
+                onClick={() => {
+                  navigator.clipboard.writeText(window.location.origin);
+                  alert('Link copied to clipboard!');
+                }}
+              >
+                📋 Copy Link
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="receipt-info">
-          <h3>Receipt Information</h3>
-          <p>
-            If you need a donation receipt or have any questions about your contribution, 
-            please contact us at: 
-            <a href="mailto:yishuveypushka@gmail.com" style={{ color: '#667eea', textDecoration: 'underline' }}>
-              <strong> yishuveypushka@gmail.com</strong>
-            </a>
-          </p>
-        </div>
+          <div className="next-steps">
+            <h3>What would you like to do next?</h3>
+            <div className="button-group">
+              <button onClick={handleStartNew} className="btn primary-btn">
+                Start New Kapparot
+              </button>
+            </div>
+          </div>
+
       </main>
 
       <footer className="footer">

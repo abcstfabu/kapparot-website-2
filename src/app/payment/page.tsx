@@ -48,11 +48,11 @@ export default function Payment() {
       'stripe': 'Credit Card (Stripe)',
       'paypal': 'PayPal',
       'matbia': 'Matbia Platform',
-      'ojc': 'OJC Payment System',
+      'ojc': 'OJC Donation System',
       'zelle': 'Zelle/QuickPay'
     };
     
-    // Update donation data with payment info
+    // Update donation data with donation info
     const updatedData: DonationData = {
       ...donationData,
       paymentMethod: paymentMethodNames[method] || method,
@@ -83,7 +83,7 @@ export default function Payment() {
     switch (method) {
       case 'stripe':
         const stripeConfirm = window.confirm(
-          `Stripe Payment\n\nAmount: $${donationData.amount}\n\nClick OK to go to Stripe and donate this amount.`
+          `Stripe Donation\n\nAmount: $${donationData.amount}\n\nClick OK to go to Stripe and donate this amount.`
         );
         
         if (stripeConfirm) {
@@ -99,7 +99,7 @@ export default function Payment() {
         
       case 'matbia':
         const matbiaConfirm = window.confirm(
-          `Matbia Payment\n\nAmount: $${donationData.amount}\n\nClick OK to go to Matbia and donate this amount.`
+          `Matbia Donation\n\nAmount: $${donationData.amount}\n\nClick OK to go to Matbia and donate this amount.`
         );
         
         if (matbiaConfirm) {
@@ -109,7 +109,7 @@ export default function Payment() {
         
       case 'ojc':
         const ojcConfirm = window.confirm(
-          `OJC Payment\n\nAmount: $${donationData.amount}\n\nClick OK to go to OJC and donate this amount.`
+          `OJC Donation\n\nAmount: $${donationData.amount}\n\nClick OK to go to OJC and donate this amount.`
         );
         
         if (ojcConfirm) {
@@ -119,7 +119,7 @@ export default function Payment() {
         
       case 'paypal':
         const paypalConfirm = window.confirm(
-          `PayPal Payment\n\nAmount: $${donationData.amount}\n\nClick OK to go to PayPal and donate this amount.`
+          `PayPal Donation\n\nAmount: $${donationData.amount}\n\nClick OK to go to PayPal and donate this amount.`
         );
         
         if (paypalConfirm) {
@@ -129,11 +129,11 @@ export default function Payment() {
         
       case 'zelle':
         const zelleMessage = 
-          `Zelle Payment\n\n` +
+          `Zelle Donation\n\n` +
           `Amount: $${donationData.amount}\n` +
           `Send to: ${config.contactEmail}\n` +
           `Notes: Kapparot\n\n` +
-          `Send this payment via Zelle, then click OK.`;
+          `Send this donation via Zelle, then click OK.`;
         
         window.alert(zelleMessage);
         // Mark as completed and redirect
@@ -143,7 +143,7 @@ export default function Payment() {
         break;
         
       default:
-        window.alert(`Payment method not yet implemented. Please contact us at ${config.contactEmail}`);
+        window.alert(`Donation method not yet implemented. Please contact us at ${config.contactEmail}`);
     }
   };
 
@@ -154,7 +154,7 @@ export default function Payment() {
   return (
     <div className="container">
       <header className="header">
-        <h1>Payment Information</h1>
+        <h1>Donation Information</h1>
         <p className="subtitle">Complete your Kapparot donation</p>
       </header>
 
@@ -169,11 +169,11 @@ export default function Payment() {
         </div>
 
         <div className="payment-options">
-          <h2>Choose Your Payment Method</h2>
+          <h2>Choose Your Donation Method</h2>
           <p className="payment-description">Select your preferred way to complete your Kapparot donation to Ahavas Yisroel Inc:</p>
           
           <div className="payment-group">
-            <h3>Payment Methods</h3>
+            <h3>Donation Methods</h3>
             
             <div className="payment-method" onClick={() => handlePaymentMethodSelect('stripe')}>
               <div className="method-header">
@@ -186,7 +186,7 @@ export default function Payment() {
               <div className="method-header">
                 <h4>PayPal</h4>
               </div>
-              <p>Pay securely through PayPal.me</p>
+              <p>Send to: <strong>{config.contactEmail}</strong></p>
             </div>
 
             <div className="payment-method" onClick={() => handlePaymentMethodSelect('zelle')}>
@@ -206,10 +206,10 @@ export default function Payment() {
 
             <div className="payment-method" onClick={() => handlePaymentMethodSelect('ojc')}>
               <div className="method-header">
-                <h4>OJC Payment System</h4>
+                <h4>OJC Donation System</h4>
                 <span className="method-badge">Jewish Platform</span>
               </div>
-              <p>Orthodox Jewish Chamber secure payment portal</p>
+              <p>Orthodox Jewish Chamber secure donation portal</p>
             </div>
           </div>
 
@@ -219,7 +219,7 @@ export default function Payment() {
           </div>
 
           <div className="security-info">
-            <p><strong>All Donations Secure:</strong> Your charitable contribution helps fulfill the mitzvah of tzedakah as part of your Kapparot observance. All online payments are processed through secure, encrypted systems.</p>
+            <p><strong>All Donations Secure:</strong> Your charitable contribution helps fulfill the mitzvah of tzedakah as part of your Kapparot observance. All online donations are processed through secure, encrypted systems.</p>
           </div>
         </div>
       </main>

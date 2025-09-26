@@ -163,19 +163,22 @@ export default function PrayerDisplay() {
               className={`toggle-button ${activeLanguage === 'hebrew' ? 'active' : ''}`}
               onClick={() => handleLanguageToggle('hebrew')}
             >
-              עברית (Hebrew)
+              <span className="toggle-label-desktop">עברית (Hebrew)</span>
+              <span className="toggle-label-mobile">עברית</span>
             </button>
             <button 
               className={`toggle-button ${activeLanguage === 'transliteration' ? 'active' : ''}`}
               onClick={() => handleLanguageToggle('transliteration')}
             >
-              Transliteration
+              <span className="toggle-label-desktop">Transliteration</span>
+              <span className="toggle-label-mobile">TR</span>
             </button>
             <button 
               className={`toggle-button ${activeLanguage === 'english' ? 'active' : ''}`}
               onClick={() => handleLanguageToggle('english')}
             >
-              English
+              <span className="toggle-label-desktop">English</span>
+              <span className="toggle-label-mobile">EN</span>
             </button>
           </div>
           
@@ -185,7 +188,9 @@ export default function PrayerDisplay() {
               className="intro-toggle-btn"
               onClick={() => setShowIntroductory(!showIntroductory)}
             >
+              <span className="toggle-icon">📖</span>
               {showIntroductory ? 'Hide' : 'Show'} Introductory Prayer
+              <span className="chevron-icon">{showIntroductory ? '↑' : '↓'}</span>
             </button>
           </div>
         </div>

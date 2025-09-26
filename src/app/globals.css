@@ -355,27 +355,88 @@ body {
     transform: translateY(-1px);
 }
 
+/* Toggle Labels - Desktop/Mobile */
+.toggle-label-mobile {
+    display: none;
+}
+
+.toggle-label-desktop {
+    display: inline;
+    position: relative;
+    z-index: 2;
+}
+
 /* Introductory Prayer Toggle */
 .introductory-toggle {
-    margin-top: 15px;
+    margin-top: 20px;
     text-align: center;
 }
 
 .intro-toggle-btn {
-    background: #f8fafc;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
     border: 1px solid #e2e8f0;
-    border-radius: 6px;
-    padding: 8px 16px;
-    font-size: 0.9rem;
-    color: #64748b;
+    border-radius: 16px;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    color: #475569;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-family: inherit;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
 }
 
 .intro-toggle-btn:hover {
-    background: #f1f5f9;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
     border-color: #cbd5e1;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.intro-toggle-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.intro-toggle-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(102, 126, 234, 0.1) 50%, transparent 70%);
+    border-radius: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.intro-toggle-btn:hover::before {
+    opacity: 1;
+}
+
+.toggle-icon {
+    font-size: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.chevron-icon {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #667eea;
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.intro-toggle-btn:hover .chevron-icon {
+    transform: scale(1.1);
 }
 
 .prayer-divider {
@@ -854,21 +915,79 @@ body {
     
     /* Prayer Controls Mobile */
     .toggle-container {
-        flex-direction: column;
-        gap: 6px;
-        padding: 8px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8px;
+        padding: 10px;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        border-radius: 20px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.06), inset 0 1px 3px rgba(0,0,0,0.08);
     }
     
     .toggle-button {
-        padding: 12px 16px;
-        font-size: 1rem;
-        border-radius: 8px;
+        padding: 16px 8px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        border-radius: 14px;
         width: 100%;
         text-align: center;
-        min-height: 48px; /* Better touch target */
+        min-height: 52px; /* Better touch target */
         display: flex;
         align-items: center;
         justify-content: center;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        position: relative;
+        -webkit-tap-highlight-color: transparent; /* Remove blue highlight on mobile */
+    }
+    
+    .toggle-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, transparent 0%, rgba(102, 126, 234, 0.1) 50%, transparent 100%);
+        border-radius: 14px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .toggle-button:active::before {
+        opacity: 1;
+    }
+    
+    .toggle-button.active {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 25px rgba(102, 126, 234, 0.35), 0 2px 10px rgba(0,0,0,0.15);
+        font-weight: 700;
+    }
+    
+    .toggle-button:not(.active) {
+        background: rgba(255,255,255,0.8);
+        color: #64748b;
+        border: 1px solid rgba(255,255,255,0.6);
+    }
+    
+    .toggle-button:not(.active):active {
+        transform: translateY(1px);
+        background: rgba(255,255,255,0.9);
+    }
+    
+    /* Mobile Labels */
+    .toggle-label-desktop {
+        display: none;
+    }
+    
+    .toggle-label-mobile {
+        display: inline;
+        font-size: 1rem;
+        font-weight: 700;
+        position: relative;
+        z-index: 2;
     }
     
     .prayer-container {
@@ -897,9 +1016,18 @@ body {
     
     /* Introductory Toggle Mobile */
     .intro-toggle-btn {
-        padding: 12px 16px;
-        font-size: 0.9rem;
-        min-height: 44px;
+        padding: 14px 20px;
+        font-size: 0.95rem;
+        min-height: 48px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .intro-toggle-btn:active {
+        transform: scale(0.98);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     
     .prayer-divider {
@@ -1046,6 +1174,70 @@ body {
     color: white;
 }
 
+/* Share Section Styles */
+.share-section {
+    padding: 40px;
+    background: #f8f9ff;
+}
+
+.share-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.03);
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.6);
+}
+
+.share-card h3 {
+    color: #1e293b;
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.share-card p {
+    color: #64748b;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.share-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.share-btn {
+    padding: 14px 24px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: inherit;
+    min-width: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.copy-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.copy-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+
 @media (max-width: 768px) {
     .success-card {
         padding: 30px 20px;
@@ -1065,5 +1257,22 @@ body {
     
     .next-steps {
         padding: 25px 20px;
+    }
+    
+    /* Share Section Mobile */
+    .share-section {
+        padding: 30px 20px;
+    }
+    
+    .share-card {
+        padding: 25px 20px;
+    }
+    
+    .share-buttons {
+        justify-content: center;
+    }
+    
+    .share-btn {
+        max-width: 200px;
     }
 }
