@@ -25,9 +25,9 @@ const PRAYERS = {
     english: `This is my substitute. This is my exchange. This is my atonement. This money shall go to charity, and I shall enter and go to a good, long life and peace.`
   },
   'self-pregnant': {
-    hebrew: `זֶה חֲלִיפָתִי. זֶה תְּמוּרָתִי. זֶה כַּפָּרָתִי. זֶה הַכֶּסֶף יֵלֵךְ לִצְדָקָה, וַאֲנִי אֶכָּנֵס וְאֵלֵךְ לְחַיִּים טוֹבִים אֲרוּכִים וּלְשָׁלוֹם:`,
-    transliteration: `Zeh chalifati. Zeh temurati. Zeh kaparati. Zeh hakesef yelech litzedakah, va'ani ekanes ve'elech l'chayim tovim arukim ul'shalom.`,
-    english: `This is my substitute. This is my exchange. This is my atonement. This money shall go to charity, and I shall enter and go to a good, long life and peace.`
+    hebrew: `זֶה חֲלִיפוֹתֵינוּ. זֶה תְּמוּרוֹתֵינוּ. זֶה כַּפָּרוֹתֵינוּ. זֶה הַכֶּסֶף יֵלֵךְ לִצְדָקָה, וַאֲנַחְנוּ נִכָּנֵס וְנֵלֵךְ לְחַיִּים טוֹבִים אֲרוּכִים וּלְשָׁלוֹם:`,
+    transliteration: `Zeh chalifoteinu. Zeh temurotenu. Zeh kaparotenu. Zeh hakesef yelech litzedakah, va'anachnu nikanes venelech l'chayim tovim arukim ul'shalom.`,
+    english: `These are our substitutes. These are our exchanges. These are our atonements. This money shall go to charity, and we shall enter and go to a good, long life and peace.`
   },
   'other-male': {
     hebrew: `זֶה חֲלִיפָתְךָ. זֶה תְּמוּרָתְךָ. זֶה כַּפָּרָתְךָ. זֶה הַכֶּסֶף יֵלֵךְ לִצְדָקָה, וְאַתָּה תִּכָּנֵס וְתֵלֵךְ לְחַיִּים טוֹבִים אֲרוּכִים וּלְשָׁלוֹם:`,
