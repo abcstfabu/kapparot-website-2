@@ -58,7 +58,7 @@ export default function PrayerDisplay() {
   const [activeLanguage, setActiveLanguage] = useState<LanguageType>('hebrew');
   const [donationData, setDonationData] = useState<DonationData | null>(null);
   const [sessionData, setSessionData] = useState<SessionData | null>(null);
-  const [showIntroductory, setShowIntroductory] = useState<boolean>(true);
+  const [currentStep, setCurrentStep] = useState<number>(1);
 
   useEffect(() => {
     // Load donation data and check if valid
@@ -77,6 +77,10 @@ export default function PrayerDisplay() {
 
   const handleLanguageToggle = (language: LanguageType) => {
     setActiveLanguage(language);
+  };
+
+  const handleNextStep = () => {
+    setCurrentStep(currentStep + 1);
   };
 
   const markPrayerCompleted = () => {
@@ -129,10 +133,21 @@ export default function PrayerDisplay() {
 
   return (
     <div className="container">
-      <header className="header">
-        <h1>Your Kapparot Prayer</h1>
-        <p className="subtitle">Recite this prayer three times while circling the money over your head</p>
-      </header>
+      <div className="ceremony-header">
+        <h1>Your Kapparot Ceremony</h1>
+        <p className="subtitle">
+          {currentStep === 1 && "Step 1 of 2: Introductory Prayer"}
+          {currentStep === 2 && "Step 2 of 2: Main Ceremony"}
+          {currentStep === 3 && "Ceremony Complete"}
+        </p>
+
+        {/* Progress Indicator */}
+        <div className="progress-dots">
+          <div className={`progress-dot ${currentStep >= 1 ? 'active' : ''} ${currentStep > 1 ? 'completed' : ''}`}></div>
+          <div className={`progress-dot ${currentStep >= 2 ? 'active' : ''} ${currentStep > 2 ? 'completed' : ''}`}></div>
+          <div className={`progress-dot ${currentStep >= 3 ? 'active' : ''}`}></div>
+        </div>
+      </div>
 
       <main className="main-content">
         {/* Prayer Summary */}
@@ -145,116 +160,150 @@ export default function PrayerDisplay() {
           </div>
         </div>
 
-        {/* Prayer Instructions */}
-        <div className="prayer-instructions">
-          <h4>How to Perform Kapparot</h4>
-          <ol>
-            <li>Hold the money in your right hand</li>
-            <li>Circle the money over your head three times</li>
-            <li>Recite the prayer below each time you circle</li>
-            <li>After completing, choose your next step below</li>
-          </ol>
-        </div>
+        {/* Step 1: Introductory Prayer */}
+        {currentStep === 1 && (
+          <div className="ceremony-step">
+            <div style={{ textAlign: 'center' }}>
+              <div className="step-number">1</div>
+            </div>
 
-        {/* Prayer Toggle Buttons */}
-        <div className="prayer-controls">
-          <div className="toggle-container">
-            <button 
-              className={`toggle-button ${activeLanguage === 'hebrew' ? 'active' : ''}`}
-              onClick={() => handleLanguageToggle('hebrew')}
-            >
-              <span className="toggle-label-desktop">עברית (Hebrew)</span>
-              <span className="toggle-label-mobile">עברית</span>
-            </button>
-            <button 
-              className={`toggle-button ${activeLanguage === 'transliteration' ? 'active' : ''}`}
-              onClick={() => handleLanguageToggle('transliteration')}
-            >
-              <span className="toggle-label-desktop">Transliteration</span>
-              <span className="toggle-label-mobile">TR</span>
-            </button>
-            <button 
-              className={`toggle-button ${activeLanguage === 'english' ? 'active' : ''}`}
-              onClick={() => handleLanguageToggle('english')}
-            >
-              <span className="toggle-label-desktop">English</span>
-              <span className="toggle-label-mobile">EN</span>
-            </button>
-          </div>
-          
-          {/* Introductory Prayer Toggle */}
-          <div className="introductory-toggle">
-            <button 
-              className="intro-toggle-btn"
-              onClick={() => setShowIntroductory(!showIntroductory)}
-            >
-              <span className="toggle-icon">📖</span>
-              {showIntroductory ? 'Hide' : 'Show'} Introductory Prayer
-              <span className="chevron-icon">{showIntroductory ? '↑' : '↓'}</span>
-            </button>
-          </div>
-        </div>
+            <div className="prayer-instructions">
+              <h4>Introductory Prayer</h4>
+              <p><strong>Instructions:</strong> Recite the prayer below <strong>three times</strong></p>
+            </div>
 
-        {/* Prayer Content */}
-        <div className="prayer-container">
-          {/* Hebrew Prayer */}
-          <div className={`prayer-text ${activeLanguage === 'hebrew' ? 'active' : ''}`}>
-            {showIntroductory && (
-              <div className="introductory-prayer">
+            {/* Prayer Toggle Buttons */}
+            <div className="prayer-controls">
+              <div className="toggle-container">
+                <button 
+                  className={`toggle-button ${activeLanguage === 'hebrew' ? 'active' : ''}`}
+                  onClick={() => handleLanguageToggle('hebrew')}
+                >
+                  <span className="toggle-label-desktop">עברית (Hebrew)</span>
+                  <span className="toggle-label-mobile">עברית</span>
+                </button>
+                <button 
+                  className={`toggle-button ${activeLanguage === 'transliteration' ? 'active' : ''}`}
+                  onClick={() => handleLanguageToggle('transliteration')}
+                >
+                  <span className="toggle-label-desktop">Transliteration</span>
+                  <span className="toggle-label-mobile">TR</span>
+                </button>
+                <button 
+                  className={`toggle-button ${activeLanguage === 'english' ? 'active' : ''}`}
+                  onClick={() => handleLanguageToggle('english')}
+                >
+                  <span className="toggle-label-desktop">English</span>
+                  <span className="toggle-label-mobile">EN</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Introductory Prayer Content */}
+            <div className="prayer-container">
+              <div className={`prayer-text ${activeLanguage === 'hebrew' ? 'active' : ''}`}>
                 <p className="prayer-content hebrew-text">{INTRODUCTORY_PRAYER.hebrew}</p>
-                <div className="prayer-divider"></div>
               </div>
-            )}
-            <div className="main-prayer">
-              <p className="prayer-content hebrew-text">{prayer.hebrew}</p>
-            </div>
-          </div>
-
-          {/* Transliteration */}
-          <div className={`prayer-text ${activeLanguage === 'transliteration' ? 'active' : ''}`}>
-            {showIntroductory && (
-              <div className="introductory-prayer">
+              <div className={`prayer-text ${activeLanguage === 'transliteration' ? 'active' : ''}`}>
                 <p className="prayer-content transliteration-text">{INTRODUCTORY_PRAYER.transliteration}</p>
-                <div className="prayer-divider"></div>
               </div>
-            )}
-            <div className="main-prayer">
-              <p className="prayer-content transliteration-text">{prayer.transliteration}</p>
-            </div>
-          </div>
-
-          {/* English Prayer */}
-          <div className={`prayer-text ${activeLanguage === 'english' ? 'active' : ''}`}>
-            {showIntroductory && (
-              <div className="introductory-prayer">
+              <div className={`prayer-text ${activeLanguage === 'english' ? 'active' : ''}`}>
                 <p className="prayer-content english-text">{INTRODUCTORY_PRAYER.english}</p>
-                <div className="prayer-divider"></div>
               </div>
-            )}
-            <div className="main-prayer">
-              <p className="prayer-content english-text">{prayer.english}</p>
+            </div>
+
+            <div className="step-actions">
+              <button className="btn primary-btn" onClick={handleNextStep}>
+                I&apos;ve Recited This Prayer 3 Times → Continue
+              </button>
             </div>
           </div>
-        </div>
+        )}
 
-        {/* Next Steps */}
-        <div className="completion-section">
-          <h3>What would you like to do next?</h3>
-          <p>After reciting the prayer three times, choose your next step:</p>
+        {/* Step 2: Main Ceremony */}
+        {currentStep === 2 && (
+          <div className="ceremony-step">
+            <div style={{ textAlign: 'center' }}>
+              <div className="step-number">2</div>
+            </div>
 
-          <div className="action-buttons">
-            <button className="action-btn secondary-btn" onClick={handlePerformAnother}>
-              Perform Another Kapparot
-            </button>
-            <button className="action-btn primary-btn" onClick={handleProceedToDonate}>
-              Donate (Total: ${totalAmount.toFixed(2)})
-            </button>
+            <div className="prayer-instructions">
+              <h4>Main Ceremony</h4>
+              <p><strong>Instructions:</strong> Take your phone, swing it around your head once, and recite the prayer below</p>
+              <p><strong>Repeat this process 3 times total</strong></p>
+            </div>
+
+            {/* Prayer Toggle Buttons */}
+            <div className="prayer-controls">
+              <div className="toggle-container">
+                <button 
+                  className={`toggle-button ${activeLanguage === 'hebrew' ? 'active' : ''}`}
+                  onClick={() => handleLanguageToggle('hebrew')}
+                >
+                  <span className="toggle-label-desktop">עברית (Hebrew)</span>
+                  <span className="toggle-label-mobile">עברית</span>
+                </button>
+                <button 
+                  className={`toggle-button ${activeLanguage === 'transliteration' ? 'active' : ''}`}
+                  onClick={() => handleLanguageToggle('transliteration')}
+                >
+                  <span className="toggle-label-desktop">Transliteration</span>
+                  <span className="toggle-label-mobile">TR</span>
+                </button>
+                <button 
+                  className={`toggle-button ${activeLanguage === 'english' ? 'active' : ''}`}
+                  onClick={() => handleLanguageToggle('english')}
+                >
+                  <span className="toggle-label-desktop">English</span>
+                  <span className="toggle-label-mobile">EN</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Main Prayer Content */}
+            <div className="prayer-container">
+              <div className={`prayer-text ${activeLanguage === 'hebrew' ? 'active' : ''}`}>
+                <p className="prayer-content hebrew-text">{prayer.hebrew}</p>
+              </div>
+              <div className={`prayer-text ${activeLanguage === 'transliteration' ? 'active' : ''}`}>
+                <p className="prayer-content transliteration-text">{prayer.transliteration}</p>
+              </div>
+              <div className={`prayer-text ${activeLanguage === 'english' ? 'active' : ''}`}>
+                <p className="prayer-content english-text">{prayer.english}</p>
+              </div>
+            </div>
+
+            <div className="step-actions">
+              <button className="btn primary-btn" onClick={handleNextStep}>
+                I&apos;ve Completed the Ceremony 3 Times → Finish
+              </button>
+            </div>
           </div>
-        </div>
+        )}
+
+        {/* Step 3: Completion */}
+        {currentStep === 3 && (
+          <div className="ceremony-step">
+            <div className="success-message">
+              <h2>Ceremony Complete!</h2>
+              <p>Your Kapparot ceremony has been completed. May this act of tzedakah bring you merit for a blessed new year.</p>
+            </div>
+
+            <h3 className="next-steps-title">What would you like to do next?</h3>
+            <div className="action-buttons">
+              <button className="action-btn secondary-btn" onClick={handlePerformAnother}>
+                Perform Another Kapparot
+              </button>
+              <button className="action-btn primary-btn" onClick={handleProceedToDonate}>
+                Complete Your Donation (${totalAmount.toFixed(2)})
+              </button>
+            </div>
+          </div>
+        )}
       </main>
 
       <footer className="footer">
-        <p>&copy; 2025 Kapparot.org . May your prayers be answered and your giving bring blessing.</p>
+        <p>&copy; 2025 Kapparot Online. May your prayers be answered and your giving bring blessing.</p>
       </footer>
     </div>
   );
