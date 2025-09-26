@@ -128,14 +128,30 @@ export default function Payment() {
         break;
         
       case 'zelle':
-        const zelleMessage = 
-          `Zelle Donation\n\n` +
-          `Amount: $${donationData.amount}\n` +
-          `Send to: ${config.contactEmail}\n` +
-          `Notes: Kapparot\n\n` +
-          `Send this donation via Zelle, then click OK.`;
+        // Copy email address to clipboard
+        try {
+          await navigator.clipboard.writeText(config.contactEmail);
+          const zelleMessage = 
+            `Zelle Donation\n\n` +
+            `Amount: $${donationData.amount}\n` +
+            `Send to: ${config.contactEmail}\n` +
+            `Notes: Kapparot\n\n` +
+            `✅ Email address copied to clipboard!\n` +
+            `Send this donation via Zelle, then click OK.`;
+          
+          window.alert(zelleMessage);
+        } catch {
+          // Fallback if clipboard doesn't work
+          const zelleMessage = 
+            `Zelle Donation\n\n` +
+            `Amount: $${donationData.amount}\n` +
+            `Send to: ${config.contactEmail}\n` +
+            `Notes: Kapparot\n\n` +
+            `Send this donation via Zelle, then click OK.`;
+          
+          window.alert(zelleMessage);
+        }
         
-        window.alert(zelleMessage);
         // Mark as completed and redirect
         updatedData.completedAt = new Date().toISOString();
         saveDonationData(updatedData);

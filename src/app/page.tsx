@@ -118,7 +118,7 @@ function HomeContent() {
     <div className="container">
       <header className="header">
         <h1>Kapparot Online</h1>
-        <p className="subtitle">Perform the modern tradition of Kapparot through charitable giving</p>
+        <p className="subtitle">Perform the ancient tradition of Kapparot through charitable giving</p>
       </header>
 
       <main className="main-content">
