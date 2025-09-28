@@ -8,12 +8,44 @@ function PaymentSuccessContent() {
   const router = useRouter();
 
   useEffect(() => {
-    // Clean up localStorage
-    try {
-      localStorage.removeItem('pendingPayment');
-    } catch (error) {
-      console.warn('Error cleaning localStorage:', error);
-    }
+    // Update payment status and clean up localStorage
+    const updatePaymentStatus = async () => {
+      try {
+        // Get pending payment info
+        const pendingPaymentStr = localStorage.getItem('pendingPayment');
+        
+        if (pendingPaymentStr) {
+          const pendingPayment = JSON.parse(pendingPaymentStr);
+          
+          // Update status in Google Sheets
+          if (pendingPayment.transactionId) {
+            await fetch('/api/update-payment-status', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                transactionId: pendingPayment.transactionId,
+                status: 'Completed'
+              })
+            });
+          }
+        }
+        
+        // Clean up localStorage
+        localStorage.removeItem('pendingPayment');
+      } catch (error) {
+        console.warn('Error updating payment status:', error);
+        // Still clean up localStorage even if update fails
+        try {
+          localStorage.removeItem('pendingPayment');
+        } catch (cleanupError) {
+          console.warn('Error cleaning localStorage:', cleanupError);
+        }
+      }
+    };
+    
+    updatePaymentStatus();
   }, []);
 
   const handleStartNew = () => {
