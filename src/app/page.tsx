@@ -124,7 +124,7 @@ function HomeContent() {
       <main className="main-content">
         <div className="info-section">
           <h2>About Kapparot</h2>
-          <p>Kapparot is a Jewish ritual performed before Yom Kippur where we symbolically transfer our sins through charitable giving. Your donation will go directly to help those in need, fulfilling the mitzvah of tzedakah while performing this meaningful tradition.</p>
+          <p>Kapparot is a Jewish ritual performed before Yom Kippur where we symbolically transfer our misdeeds through charitable giving. Your donation will go directly to help those in need, fulfilling the mitzvah of tzedakah while performing this meaningful tradition.</p>
         </div>
 
         <div className="donation-purpose">
