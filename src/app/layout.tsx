@@ -116,7 +116,7 @@ export const metadata: Metadata = {
     images: ['/twitter-image.png'],
   },
   alternates: {
-    canonical: process.env.NEXT_PUBLIC_SITE_URL || 'https://kapparot-website-2.vercel.app',
+    canonical: process.env.NEXT_PUBLIC_SITE_URL || 'https://kapparot.org',
     languages: {
       'en-US': '/en-US',
       'he-IL': '/he-IL',
@@ -145,7 +145,7 @@ export default function RootLayout({
         "@id": "#website",
         "name": "Kapparot Online",
         "description": "Ancient Jewish atonement ritual performed through charitable giving",
-        "url": process.env.NEXT_PUBLIC_SITE_URL || "https://kapparot-website-2.vercel.app",
+        "url": process.env.NEXT_PUBLIC_SITE_URL || "https://kapparot.org",
         "inLanguage": ["en-US", "he-IL"],
         "publisher": {
           "@id": "#organization"
@@ -168,7 +168,7 @@ export default function RootLayout({
         "taxID": "81-3495350",
         "nonprofitStatus": "501(c)(3)",
         "foundingDate": "2020",
-        "url": process.env.NEXT_PUBLIC_SITE_URL || "https://kapparot-website-2.vercel.app",
+        "url": process.env.NEXT_PUBLIC_SITE_URL || "https://kapparot.org",
         "logo": {
           "@type": "ImageObject",
           "url": "/favicon.svg",
@@ -193,7 +193,7 @@ export default function RootLayout({
         "@type": "WebApplication",
         "name": "Kapparot Online",
         "description": "Digital platform for performing the ancient Jewish Kapparot tradition through charitable giving",
-        "url": process.env.NEXT_PUBLIC_SITE_URL || "https://kapparot-website-2.vercel.app",
+        "url": process.env.NEXT_PUBLIC_SITE_URL || "https://kapparot.org",
         "applicationCategory": "Religious Application",
         "operatingSystem": "Web Browser",
         "permissions": "none",
@@ -225,7 +225,7 @@ export default function RootLayout({
         },
         "location": {
           "@type": "VirtualLocation",
-          "url": process.env.NEXT_PUBLIC_SITE_URL || "https://kapparot-website-2.vercel.app"
+          "url": process.env.NEXT_PUBLIC_SITE_URL || "https://kapparot.org"
         }
       },
       {

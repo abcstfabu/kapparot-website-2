@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kapparot-website-2.vercel.app'
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kapparot.org'
   
   return [
     {
