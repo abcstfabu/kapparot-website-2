@@ -146,12 +146,15 @@ export default function Payment() {
         
         // Show popup immediately
         const zelleConfirm = window.confirm(
-          `Zelle Donation\n\n` +
-          `Amount: $${donationData.amount}\n` +
-          `Send to: ${config.contactEmail}\n` +
-          `Notes: Kapparot\n\n` +
-          `✅ Email address copied to clipboard!\n` +
-          `Click OK to continue to completion page.`
+          `Zelle/QuickPay Donation\n\n` +
+          `Amount: $${donationData.amount}\n\n` +
+          `When you click OK:\n` +
+          `✅ Email address will be copied to clipboard\n\n` +
+          `Then:\n` +
+          `1. Open your banking app\n` +
+          `2. Go to Zelle/QuickPay\n` +
+          `3. Send $${donationData.amount} to the copied email\n` +
+          `4. Add note: "Kapparot"`
         );
         
         if (zelleConfirm) {
