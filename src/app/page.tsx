@@ -123,8 +123,10 @@ function HomeContent() {
 
       <main className="main-content">
         <div className="info-section">
-          <h2>About Kapparot</h2>
-          <p>Kapparot is a Jewish ritual performed before Yom Kippur where we symbolically transfer our misdeeds through charitable giving. Your donation will go directly to help those in need, fulfilling the mitzvah of tzedakah while performing this meaningful tradition.</p>
+          <h2>About Kapparot (Kaporos)</h2>
+          <p>Kapparot (also spelled Kaporos, Kaparot, or Kapporos) is an ancient Jewish atonement ritual performed before Yom Kippur, the Day of Atonement. This meaningful High Holy Days tradition allows us to symbolically transfer our misdeeds through charitable giving (tzedakah).</p>
+          <p>Whether you&apos;re Orthodox, Conservative, Reform, or simply seeking to connect with Jewish tradition, this online platform provides authentic Hebrew prayers and step-by-step guidance to perform Kapparot from anywhere in the world. Your donation supports Jewish families who have made aliyah to Israel, combining spiritual practice with meaningful charity.</p>
+          <p>Perfect for those who want to observe this sacred ritual without the traditional chicken ceremony, using the time-honored alternative of monetary donations instead.</p>
         </div>
 
         <div className="donation-purpose">

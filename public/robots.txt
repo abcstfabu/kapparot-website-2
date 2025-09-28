@@ -1,0 +1,22 @@
+# Robots.txt for Kapparot Online
+# Allow all search engines to crawl all content
+
+User-agent: *
+Allow: /
+
+# Priority pages for crawling
+Allow: /
+Allow: /payment
+Allow: /prayer-display
+Allow: /completion
+Allow: /payment-success
+Allow: /privacy-policy
+
+# Block API routes from indexing (they're functional, not content)
+Disallow: /api/
+
+# Sitemap location
+Sitemap: /sitemap.xml
+
+# Crawl delay (optional - be respectful to search engines)
+Crawl-delay: 1
